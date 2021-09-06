@@ -1,0 +1,36 @@
+{% extends 'mainPage.html' %}
+
+{% block title %}Новости{% endblock %}
+{% block head %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'admin/css/news.css' %}">
+    <script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>
+{% endblock %}
+{% block news %}
+    <div class="for-news">
+
+            {% if latest_articles_list %}
+                {% for i in latest_articles_list %}
+                    <div class="new-1">
+                        <h3>{{i.article_title}}</h3>
+                        {% if i.article_img %}
+                            <img class="img___" src="{{ i.article_img }}" width="150px" height="100px">
+                        {% endif %}
+                        <p>
+                            {{i.pub_date}}
+                            <br>
+                            {{ i.article_short_content }}
+                            <br>
+                            <a href="{% url 'newsApp:detail' i.id %}" class="a-new">
+                                <strong>Читать подробнее...</strong>
+                            </a>
+                        </p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: white; margin-top: 40px; font-size: 48px; ">Статьи не найдены</p>
+             {% endif %}
+
+    </div>
+
+{% endblock %}
